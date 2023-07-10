@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
@@ -12,46 +14,60 @@
         <div id="'header">Weather Dashboard</div>
     </header>
 
-    <aside class="row">
-        <div>
-            <h1>Search for a City:</h1>
-            <div id="cityInput">
-                <input id="input">
-
-            </div>
-        </div>
-        <div id="cityButtons">
-            <ul></ul>
-        </div>
-    </aside>
-
-    <!-- Main cointainer (saily weather 5-day forecast) -->
-<main class="cointainer">
+ <div class="cointainer-fluid"   
     <div class="row">
-        <div<div class="card">
-            <div class="body" id="dailyWeather">
+        <div id="sideNav" class="col-lg-3 bg-light">
+            <h1 class="mt-1">Search for a City:</h1>
+            <div id="cityInput" class="input-group mb-3">
+                <input 
+                id="enter-city"
+                class="form-control"
+                placeholder="Enter the name of a City">
 
+                <button id="sumit-search"
+                 class="btn btn-primary" 
+                 type="button">
+                </button>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div id="fiveDay">
+</div>   
+<!-- Daily weather-->
+<div class="col-lg-9">
+    <div class="row mr-0">
+        <div class="col-lg-11 card m-3 d-none" id="today-weather">
+            <div class="card-body">
+                <h3 id="city-name" class="city-name align-middle"></h3>
+                <img id="current-pic" alt="">
+                <p id="temperature"></p>
+                <p id="humidity"></p>
+                <p id="wind-speed"></p>
+                <p id="UV-index"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main cointainer (saily weather 5-day forecast) -->
+<main class="row d-none" id="fiveday-header">
+    <div class="col-12">
+       <h1>5 Day forecast</h1>
         </div>
     </div>
 
     <section class="row">
         <div id="dailyforcast">
-            <div class="card">
-                <div id="day1"></div>
-                <div id="day2"></div>
-                <div id="day3"></div>
-                <div id="day4"></div>
-                <div id="day5"></div>
+            <div class="row">
+                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
+                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
             </div>
         </div>
     </section>
 </main>
-
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="script.js"></script>
 </body>
 </html>
