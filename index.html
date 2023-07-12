@@ -3,71 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div id="'header">Weather Dashboard</div>
-    </header>
 
- <div class="cointainer-fluid"   
-    <div class="row">
-        <div id="sideNav" class="col-lg-3 bg-light">
-            <h1 class="mt-1">Search for a City:</h1>
-            <div id="cityInput" class="input-group mb-3">
-                <input 
-                id="enter-city"
-                class="form-control"
-                placeholder="Enter the name of a City">
+<!-- Header -->
+<h1 id="'header">Weather Dashboard</h1>
 
-                <button id="sumit-search"
-                 class="btn btn-primary" 
-                 type="button">
-                </button>
+
+<div class="container">
+    <div class="weather-input">
+        <h3>Enter a City Name:</h3>
+        <input type="text" placeholder="E.g., San Antonio, Los Angeles">
+        <button class="search-btn">Search</button>
+        <div class="separator"></div>
+    </div>
+    <div class="weather-data">
+        <!-- Daily weather-->
+        <div class="current-weather">
+            <div class="details">
+            <h2> San Antonio (2023-07-09)</h2>
+            <h4>Temperature:</h4>
+            <h4>Wind:</h4>
+            <h4>Humidity:</h4>
+            </div>
+            <div class="icon">
+                <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="icon">
+                <h4>Rain</h4>
             </div>
         </div>
-    </div>
-
-</div>   
-<!-- Daily weather-->
-<div class="col-lg-9">
-    <div class="row mr-0">
-        <div class="col-lg-11 card m-3 d-none" id="today-weather">
-            <div class="card-body">
-                <h3 id="city-name" class="city-name align-middle"></h3>
-                <img id="current-pic" alt="">
-                <p id="temperature"></p>
-                <p id="humidity"></p>
-                <p id="wind-speed"></p>
-                <p id="UV-index"></p>
-            </div>
+            <!-- Main cointainer (daily weather 5-day forecast) -->
+        <div class="days-forecast">
+            <h2>5-Day Forecast</h2>
+            <ul class="weather-cards">
+                <li class="card">
+                    <h2>(2023-07-09)</h2>
+                    <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="">
+                    <h4>Temperature:</h4>
+                    <h4>Wind:</h4>
+                    <h4>Humidity:</h4>
+                </li>
+                <li class="card">
+                    <h2>(2023-07-09)</h2>
+                    <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="">
+                    <h4>Temperature:</h4>
+                    <h4>Wind:</h4>
+                    <h4>Humidity:</h4>
+                </li>
+                <li class="card">
+                    <h2>(2023-07-09)</h2>
+                    <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="">
+                    <h4>Temperature:</h4>
+                    <h4>Wind:</h4>
+                    <h4>Humidity:</h4>
+                </li>
+                <li class="card">
+                    <h2>(2023-07-09)</h2>
+                    <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="">
+                    <h4>Temperature:</h4>
+                    <h4>Wind:</h4>
+                    <h4>Humidity:</h4>
+                </li>
+                <li class="card">
+                    <h2>(2023-07-09)</h2>
+                    <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="">
+                    <h4>Temperature:</h4>
+                    <h4>Wind:</h4>
+                    <h4>Humidity:</h4>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
 
-    <!-- Main cointainer (saily weather 5-day forecast) -->
-<main class="row d-none" id="fiveday-header">
-    <div class="col-12">
-       <h1>5 Day forecast</h1>
-        </div>
-    </div>
-
-    <section class="row">
-        <div id="dailyforcast">
-            <div class="row">
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-                <div class="col-md-2 forecast bg-primary text-white m-2 rounded"></div>
-            </div>
-        </div>
-    </section>
-</main>
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-      <script src="script.js"></script>
 </body>
 </html>
