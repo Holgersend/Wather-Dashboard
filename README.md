@@ -10,8 +10,12 @@ This weather dashboard built that to run in the browser and feature dynamically 
 * HTML
 
 * JavaScript
-  <img src="Wather-Dashboard/Screenshot 2023-07-13 at 9.14.32 PM.png">
+  <img src="Screenshot 2023-07-13 at 9.14.32 PM.png">
 ## Website Link
 
 https://holgersend.github.io/Wather-Dashboard/ 
+
+## Repository Link 
+
+https://github.com/Holgersend/Wather-Dashboard
 
