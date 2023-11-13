@@ -1,79 +1,102 @@
  // Assigning a unique API to a variable
 const API_KEY = "daba15fa77e133f3d21659d7e16d88aa";
 
-const cityInput = document.querySelector(".city-input");
-const searchButton = document.querySelector(".search-btn");
-const currentWeatherDiv = document.querySelector(".current-wather");
-const weatherCardsDiv = document.querySelector(".weather-cards");
+var apiUrl = 'https://api.openweathermap.org/data/2.5';
 
-const createWeatherCard = (cityName, weatherItem, index) => {
-    if(index === 0){
-        return `<div class="details">
-        <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-        <h6>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
-        <h6>Wind: ${weatherItem.wind.speed} M/S</h6>
-        <h6>Humidity: ${weatherItem.main.humidity}%</h6>
-    </div>
-    <div class="icon">
-        <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-        <h6>${weatherItem.weather[0].description}</h6>
-    </div>`;
-    } else {
-        return `<li class="card">
-    <h2>(${weatherItem.dt_txt.split(" ")[0]})</h2>
-    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-    <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h4>
-    <h4>Wind: ${weatherItem.wind.speed} M/S</h4>
-    <h4>Humidity: ${weatherItem.main.humidity}%</h4>
-</li>`;
-    }
+// DOM VARIABLES
+var cityInput = document.querySelector('.city-input');
+const form = document.getElementById("./weather-input");
+var WeatherCard = document.querySelector('.current-weather');
+var forecastContainer = document.querySelector('.days-forecast .weather-cards');
+const currentWeatherDetails = document.querySelector('.current-weather .details');
 
-}
-const getWeatherDetails = (cityName, lat, lon) => {
-    const WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY;
 
-    fetch(WEATHER_API_URL).then(res => res.json()).then(data =>{
-        console.log(data);
+// Function to fetch current weather
+function getCurrentWeather(city) {
+    var currentWeatherUrl = `${apiUrl}/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
-        const uniqueForecastDays = [];
-        const fiveDaysForecast = data.list.filter(forecast => {
-            const forecastDate = new Date(forecast.dt_txt).getDate();
-            if(!uniqueForecastDays.includes(forecastDate)){
-                return uniqueForecastDays.push(forecastDate);
-            }
+    fetch(currentWeatherUrl)
+        .then(response => response.json())
+        .then(data => {
+            var { name, sys, main, weather, wind } = data;
+            var country = sys.country;
+            var temperature = main.temp;
+            var humidity = main.humidity;
+            var windSpeed = wind.speed;
+
+            // Update the current weather card
+            WeatherCard.innerHTML = `
+                <h2>${name}, ${country}</h2>
+                <p>Temperature: ${temperature}°C</p>
+                <p>Humidity: ${humidity}%</p>
+                <p>Wind Speed: ${windSpeed} m/s</p>
+            `;
+        })
+        .catch(error => {
+            console.error('Error fetching current weather data:', error);
         });
-        
-        cityInput.value = " ";
-        currentWeatherDiv.innerHTML = " ";
-        weatherCardsDiv.innerHTML = " ";
-        
-        console.log(fiveDaysForecast);
-        fiveDaysForecast.forEach(weatherItem => {
-            if(index === 0){
-                currentWeatherDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
-            }else {
-                weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
+}
+
+// Function to fetch forecast weather
+function getForecastWeather(city) {
+    var forecastWeatherUrl = `${apiUrl}/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+    fetch(forecastWeatherUrl)
+        .then(response => response.json())
+        .then(data => {
+            var forecastList = data.list;
+            forecastContainer.innerHTML = '';
+
+            // Forecast cards
+            for (let i = 0; i < forecastList.length; i += 8) {
+                var forecast = forecastList[i];
+                var { dt, main, weather } = forecast;
+                var temperature = main.temp;
+                var humidity = main.humidity;
+
+                // Create a forecast card
+                var card = document.createElement('li');
+                card.classList.add('card');
+                card.innerHTML = `
+                    <h4>Temperature: ${temperature}°C</h4>
+                    <h4>Humidity: ${humidity}%</h4>
+                `;
+                forecastContainer.appendChild(card);
             }
+        })
+        .catch(error => {
+            console.error('Error fetching forecast weather data:', error);
         });
-    }).catch (() => {
-        alert("error occurred while fetrching the weather forcast");
-    });
-}
-const getCityCoordinates = () => {
-    const cityName = cityInput.value.trim();
-    if(!cityName) return;
-
-    console.log(cityName)
-
-    const GEOCODING_API_URL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + API_KEY;
-
-    fetch(GEOCODING_API_URL).then(res => res.json()).then(data =>{
-        console.log(data)
-        const { name, lat, lon} = data[0];
-        getWeatherDetails(name, lat, lon);
-    }).catch(() => {
-        alert("error ocurred while fetching the cordinates");
-    });
 }
 
-searchButton.addEventListener("click", getCityCoordinates); 
+// Function to fetch and display weather data
+function getWeather(city) {
+    getCurrentWeather(city);
+    getForecastWeather(city);
+}
+
+// Get the current date
+function getCurrentDate() {
+    var currentDate = new Date();
+    return getFormattedDate(currentDate);
+}
+
+// Format a date string
+function getFormattedDate(date) {
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+}
+
+
+// Event listener for form submission
+var InputForm = document.getElementById('weather-form');
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const city = cityInput.value;
+
+    forecastContainer.style.display = 'block';
+
+    fetchWeatherContent(city);
+
+});

@@ -24,13 +24,13 @@ h1{
 }
 
 .container {
-    display: flex;
+    display: center;
     gap: 35px;
-    padding: 30px;
+    padding: 90px 100px 200px 490px;
 }
 
 .weather-input {
-    width: 500px;
+    width: 900px;
 }
 
 .weather-input input {
