@@ -4,11 +4,10 @@ const API_KEY = "daba15fa77e133f3d21659d7e16d88aa";
 var apiUrl = 'https://api.openweathermap.org/data/2.5';
 
 // DOM VARIABLES
-var cityInput = document.querySelector('.city-input');
-const form = document.getElementById("./weather-input");
-var WeatherCard = document.querySelector('.current-weather');
-var forecastContainer = document.querySelector('.days-forecast .weather-cards');
-const currentWeatherDetails = document.querySelector('.current-weather .details');
+const cityInput = document.querySelector('.city-input');
+const searchBtn = document.querySelector('.search-btn');
+const currentWeather = document.querySelector('.current-weather');
+const forecastList = document.querySelector('.weather-cards');
 
 
 // Function to fetch current weather
